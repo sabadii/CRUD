@@ -13,16 +13,16 @@ public class PostService {
         this.repository = repository;
     }
 
-    public List<Post> all() {
-        return repository.all();
+    public List<Post> getAll() {
+        return repository.getAll();
     }
 
     public Post getById(long id) {
-        return repository.getById(id).orElseThrow(NotFoundException::new);
+        return repository.getById(id);
     }
 
-    public Post save(Post post) {
-        return repository.save(post);
+    public void save(Post post) {
+        repository.save(post);
     }
 
     public void removeById(long id) {
