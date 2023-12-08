@@ -1,6 +1,10 @@
 package servlet;
 
 import controller.PostController;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import repository.PostRepository;
 import service.PostService;
 
@@ -8,15 +12,29 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
+@Configuration
 public class MainServlet extends HttpServlet {
     private PostController controller;
 
+    @Bean
+    public PostRepository postRepository() {
+        return new PostRepository();
+    }
+    
+    @Bean
+    public PostService postService(PostRepository repository) {
+        return new PostService(repository);
+    }
+
+    @Bean
+    public PostController postController(PostService service) {
+        return new PostController(service);
+    }
+
     @Override
     public void init() {
-        final var repository = new PostRepository();
-        final var service = new PostService(repository);
-        controller = new PostController(service);
+        ApplicationContext context = new AnnotationConfigApplicationContext(MainServlet.class);
+        controller = context.getBean(PostController.class);
     }
 
     @Override

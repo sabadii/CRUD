@@ -1,6 +1,7 @@
 package repository;
 
 import model.Post;
+import org.springframework.context.annotation.Bean;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,6 +10,7 @@ import java.util.Optional;
 
 // Stub
 public class PostRepository {
+
     private final List<Post> posts = new ArrayList<>();
     private long postIdCounter = 1;
     public  synchronized List<Post> getAll() {
