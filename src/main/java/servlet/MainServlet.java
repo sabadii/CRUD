@@ -1,6 +1,10 @@
 package servlet;
 
 import controller.PostController;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import repository.PostRepository;
 import service.PostService;
 
@@ -9,19 +13,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@Configuration
+@ComponentScan
 public class MainServlet extends HttpServlet {
     private PostController controller;
-
     @Override
     public void init() {
-        final var repository = new PostRepository();
-        final var service = new PostService(repository);
-        controller = new PostController(service);
+        ApplicationContext context = new AnnotationConfigApplicationContext(MainServlet.class);
+        controller = context.getBean(PostController.class);
     }
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        // если деплоились в root context, то достаточно этого
         try {
             final var path = req.getRequestURI();
             final var method = req.getMethod();
