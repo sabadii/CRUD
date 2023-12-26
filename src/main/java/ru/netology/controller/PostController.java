@@ -1,8 +1,8 @@
-package controller;
+package ru.netology.controller;
 
-import model.Post;
+import ru.netology.model.Post;
 import org.springframework.web.bind.annotation.*;
-import service.PostService;
+import ru.netology.service.PostService;
 
 import java.util.List;
 

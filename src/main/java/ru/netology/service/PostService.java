@@ -1,8 +1,8 @@
-package service;
+package ru.netology.service;
 
-import exception.NotFoundException;
-import model.Post;
-import repository.PostRepository;
+import ru.netology.exception.NotFoundException;
+import ru.netology.model.Post;
+import ru.netology.repository.PostRepository;
 
 import java.util.List;
 
